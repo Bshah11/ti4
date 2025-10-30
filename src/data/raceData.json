@@ -54,7 +54,7 @@
     ],
     "homeSystems": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
     "pokHomeSystems": [52, 53, 54, 55, 56, 57, 58],
-    "teHomeSystems": [],
+    "teHomeSystems": [92, 93, 94, 95, 96],
     "dsHomeSystems": [
         3201, 3202, 3203, 3204, 3205,
         3206, 3207, 3208, 3209, 3210,
@@ -89,6 +89,11 @@
         "56": "The Empyrean",
         "57": "The Naaz-Rokha Alliance",
         "58": "The Argent Flight",
+        "92": "Last Bastion",
+        "93": "The Ral Nel Consortium",
+        "94": "The Crimson Rebellion",
+        "95": "The Deepwrought Scholarate",
+        "96": "The Firmament",
 
         "3201": "The Veldyr Sovereignty",
         "3202": "The Free Systems Compact",
@@ -150,6 +155,11 @@
         "The Empyrean": 56,
         "The Naaz-Rokha Alliance": 57,
         "The Argent Flight": 58,
+        "Last Bastion": 92,
+        "The Ral Nel Consortium": 93,
+        "The Crimson Rebellion": 94,
+        "The Deepwrought Scholarate": 95,
+        "The Firmament": 96,
 
         "The Veldyr Sovereignty": 3201,
         "The Free Systems Compact": 3202,
