@@ -36,6 +36,7 @@ export const WORMHOLES = {
 export const EXPANSIONS = {
     "POK": "Prophecy of Kings",
     "DS": "Discordant Stars",
+    "TE": "Thunder's Edge",
     "UnS": "Uncharted Space",
     "AS": "Ascendant Sun",
     "Async": "Async Hyperlanes"
@@ -1663,6 +1664,182 @@ const tileData = {
             "wormhole": [],
             "anomaly": [],
             "planets": [
+            ]
+        },
+        "92": {
+            "type": "green",
+            "race": "Last Bastion",
+            "wormhole": [],
+            "anomaly": [ANOMALIES.NEBULA],
+            "planets": [
+                {
+                    "name": "Ordinian",
+                    "resources": 0,
+                    "influence": 0,
+                    "trait": null,
+                    "specialty": null,
+                    "legendary": true
+                },
+                {
+                    // todo: figure out how to signify this is a space station
+                    "name": "Revelation",
+                    "resources": 1,
+                    "influence": 2,
+                    "trait": null,
+                    "specialty": null,
+                    "legendary": false
+                }
+          ]
+        },
+        "93": {
+            "type": "green",
+            "race": "The Ral Nel Consortium",
+            "wormhole": [],
+            "anomaly": [],
+            "planets": [
+                {
+                    "name": "Mez Lo Orz Fei Zsha",
+                    "resources": 2,
+                    "influence": 1,
+                    "trait": null,
+                    "specialty": null,
+                    "legendary": false
+                },
+                {
+                    "name": "Rep Lo Orz Qet",
+                    "resources": 1,
+                    "influence": 3,
+                    "trait": null,
+                    "specialty": null,
+                    "legendary": false
+                }
+            ]
+        },
+        "94": {
+            "type": "green",
+            "race": "The Crimson Rebellion",
+            "wormhole": ["epsilon"],
+            "anomaly": [],
+            "planets": []
+        },
+        "95": {
+            "type": "green",
+            "race": "The Deepwrought Scholorate",
+            "wormhole": [],
+            "anomaly": [],
+            "planets": [
+                {
+                    "name": "Ikatena",
+                    "resources": 4,
+                    "influence": 4,
+                    "trait": null,
+                    "specialty": null,
+                    "legendary": false
+                }
+            ]
+        },
+        "96a": {
+            "type": "green",
+            "race": "The Firmament",
+            "wormhole": [],
+            "anomaly": [],
+            "planets": [
+                {
+                    "name": "Cronos",
+                    "resources": 2,
+                    "influence": 1,
+                    "trait": null,
+                    "specialty": null,
+                    "legendary": false
+                },
+                {
+                    "name": "Tallin",
+                    "resources": 1,
+                    "influence": 2,
+                    "trait": null,
+                    "specialty": null,
+                    "legendary": false
+                }
+            ]
+        },
+        "97": {
+            "type": "blue",
+            "wormhole": [],
+            "anomaly": [],
+            "planets": [
+                {
+                    "name": "Faunus",
+                    "resources": 1,
+                    "influence": 3,
+                    "trait": PLANET_TRAITS.INDUSTRIAL,
+                    "specialty": TECH_SPECIALTIES.BIOTIC,
+                    "ability": "",
+                    "legendary": true
+                }
+            ]
+        },
+        "98": {
+            "type": "blue",
+            "wormhole": [],
+            "anomaly": [],
+            "planets": [
+                {
+                    "name": "Garbozia",
+                    "resources": 2,
+                    "influence": 1,
+                    "trait": PLANET_TRAITS.HAZARDOUS,
+                    "specialty": TECH_SPECIALTIES.NONE,
+                    "ability": "",
+                    "legendary": true
+                }
+            ]
+        },
+        "99": {
+            "type": "blue",
+            "wormhole": [],
+            "anomaly": [],
+            "planets": [
+                {
+                    "name": "Emelpar",
+                    "resources": 0,
+                    "influence": 2,
+                    "trait": PLANET_TRAITS.CULTURAL,
+                    "specialty": TECH_SPECIALTIES.NONE,
+                    "ability": "",
+                    "legendary": true
+                }
+            ]
+        },
+        "100": {
+            "type": "blue",
+            "wormhole": [],
+            "anomaly": [],
+            "planets": [
+                {
+                    "name": "Tempesta",
+                    "resources": 1,
+                    "influence": 1,
+                    "trait": PLANET_TRAITS.HAZARDOUS,
+                    "specialty": TECH_SPECIALTIES.PROPULSION,
+                    "ability": "",
+                    "legendary": true
+                }
+            ]
+        },
+        "101": {
+            "type": "blue",
+            "wormhole": [],
+            "anomaly": [],
+            "planets": [
+                {
+                    "name": "Olergodt",
+                    "resources": 2,
+                    "influence": 1,
+                    "trait": PLANET_TRAITS.INDUSTRIAL, // todo: figure out how to handle more than one trait
+                    "specialty": TECH_SPECIALTIES.WARFARE, // todo: figure out how to handle more than one specialty
+                    "ability": "",
+                    "legendary": true
+                }
             ]
         },
 

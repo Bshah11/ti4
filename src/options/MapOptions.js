@@ -39,9 +39,11 @@ class MapOptions extends React.Component {
             placementStyles: ["slice", "initial", "home", "random"],
             races: [...raceData["races"]],
             pokRaces: [...raceData["pokRaces"]],
+            teRaces: [...raceData["teRaces"]],
             dsRaces: [...raceData["dsRaces"]],
             homeworlds: raceData["homeSystems"],
             pokHomeworlds: raceData["pokHomeSystems"],
+            teHomeworlds: raceData["teHomeSystems"],
             dsHomeworlds: raceData["dsHomeworlds"]
         }
         const startingPlayers = 6;
@@ -93,6 +95,7 @@ class MapOptions extends React.Component {
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleRacesChange = this.handleRacesChange.bind(this);
         this.updatePok = this.updatePok.bind(this);
+        this.updateTE = this.updateTE.bind(this);
         this.updateUncharted = this.updateUncharted.bind(this);
         this.updateDS = this.updateDS.bind(this);
         this.updateSun = this.updateSun.bind(this);
@@ -154,11 +157,13 @@ class MapOptions extends React.Component {
         let newCurrentRaces = this.props.currentRaces;
         if (race === "none") {  // The deselect all option
             newCurrentRaces = []
-        } else if (race === "all") {  // The deselect all option
+        } else if (race === "all") {  // The select all option
+            newCurrentRaces = [...this.state.optionsPossible.races]
             if (this.props.includedExpansions[EXPANSIONS.POK]) {
-                newCurrentRaces = [...this.state.optionsPossible.races.concat(this.state.optionsPossible.pokRaces)]
-            } else {
-                newCurrentRaces = [...this.state.optionsPossible.races]
+                newCurrentRaces = newCurrentRaces.concat(this.state.optionsPossible.pokRaces)
+            }
+            if (this.props.includedExpansions[EXPANSIONS.TE]){
+                newCurrentRaces = newCurrentRaces.concat(this.state.optionsPossible.teRaces)
             }
         } else {
             let indexToToggle = newCurrentRaces.indexOf(race)
@@ -174,6 +179,7 @@ class MapOptions extends React.Component {
 
     updatePok(event) {
         let races = [...this.state.optionsPossible.races]
+        if (this.props.includedExpansions[EXPANSIONS.TE]) races = races.concat(this.state.optionsPossible.teRaces)
         if (this.props.includedExpansions[EXPANSIONS.DS]) races = races.concat(this.state.optionsPossible.dsRaces)
         let boardOptions = this.state.optionsPossible.boardStyles;
         if (event.target.checked) {
@@ -198,6 +204,18 @@ class MapOptions extends React.Component {
             });
         }
     }
+    
+    updateTE(event) {
+      let races = [...this.state.optionsPossible.races]
+      if (this.props.includedExpansions[EXPANSIONS.POK]) races = races.concat(this.state.optionsPossible.pokRaces)
+      if (this.props.includedExpansions[EXPANSIONS.DS]) races = races.concat(this.state.optionsPossible.dsRaces)
+      if (event.target.checked) {
+          this.props.updateRaces([...races.concat(this.state.optionsPossible.teRaces)]);
+      } else {
+          this.props.updateRaces(races);
+      }
+      this.props.toggleThundersEdge(event);
+    }
 
     updateUncharted(event) {
         this.props.toggleUnchartedSpace(event);
@@ -214,6 +232,7 @@ class MapOptions extends React.Component {
     updateDS(event) {
         let races = [...this.state.optionsPossible.races]
         if (this.props.includedExpansions[EXPANSIONS.POK]) races = races.concat(this.state.optionsPossible.pokRaces)
+        if (this.props.includedExpansions[EXPANSIONS.TE]) races = races.concat(this.state.optionsPossible.teRaces)
         if (event.target.checked) {
             this.props.updateRaces([...races.concat(this.state.optionsPossible.dsRaces)]);
         } else {
@@ -557,6 +576,7 @@ class MapOptions extends React.Component {
         if (includedExpansions === undefined) {
             includedExpansions = Object.fromEntries([
                 [EXPANSIONS.POK, this.props.includedExpansions[EXPANSIONS.POK]],
+                [EXPANSIONS.TE, this.props.includedExpansions[EXPANSIONS.TE]],
                 [EXPANSIONS.UnS, this.state.fanContent && this.props.includedExpansions[EXPANSIONS.UnS]],
                 [EXPANSIONS.AS, this.state.fanContent && this.props.includedExpansions[EXPANSIONS.AS]],
                 [EXPANSIONS.Async, this.state.fanContent && this.props.includedExpansions[EXPANSIONS.Async]],
@@ -1541,6 +1561,10 @@ class MapOptions extends React.Component {
                     <Form.Group className="mb-3 d-flex" controlId="pokExpansion">
                         <Form.Check name="pokExpansion" type="checkbox" checked={this.props.includedExpansions[EXPANSIONS.POK]} onChange={this.updatePok} label="Use POK Tiles" />
                     </Form.Group>
+                    
+                    <Form.Group className="mb-3 d-flex" controlId="teExpansion">
+                        <Form.Check name="teExpansion" type="checkbox" checked={this.props.includedExpansions[EXPANSIONS.TE]} onChange={this.updateTE} label="Use Thunder's Edge Tiles" />
+                    </Form.Group>
 
                     <Form.Group className="mb-3 d-flex" controlId="fanContent">
                         <Form.Check name="fanContent" type="checkbox" checked={this.state.fanContent} onChange={this.handleInputChange} label="Use Fan-Made Content" />
@@ -1721,6 +1745,7 @@ class MapOptions extends React.Component {
                     <SetRacesModal visible={this.state.setRacesHelp} races={this.state.optionsPossible.races}
                         includedExpansions={this.props.includedExpansions}
                         pokRaces={this.state.optionsPossible.pokRaces}
+                        teRaces={this.state.optionsPossible.teRaces}
                         dsRaces={this.state.optionsPossible.dsRaces}
                         currentRaces={this.props.currentRaces}
                         hideModal={this.toggleSetRacesHelp} handleRacesChange={this.handleRacesChange}

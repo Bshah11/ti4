@@ -9,6 +9,13 @@
         "The Argent Flight", "The Empyrean", "The Mahact Gene-sorcerers", "The Naaz-Rokha Alliance", "The Nomad",
         "The Titans of Ul", "The Vuil'raith Cabal"
     ],
+    "teRaces": [
+        "The Crimson Rebellion",
+        "The Deepwrought Scholarate",
+        "The Firmament / The Obsidian",
+        "Last Bastion",
+        "The Ral Nel Consortium"
+    ],
     "dsRaces": [
         "The Shipwrights of Axis",
         "The Celdauri Trade Confederation",
@@ -47,6 +54,7 @@
     ],
     "homeSystems": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
     "pokHomeSystems": [52, 53, 54, 55, 56, 57, 58],
+    "teHomeSystems": [],
     "dsHomeSystems": [
         3201, 3202, 3203, 3204, 3205,
         3206, 3207, 3208, 3209, 3210,

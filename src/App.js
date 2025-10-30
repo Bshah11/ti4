@@ -80,6 +80,7 @@ class App extends React.Component {
 
         this.toggleOptionsMenu = this.toggleOptionsMenu.bind(this);
         this.toggleProphecyOfKings = this.toggleProphecyOfKings.bind(this);
+        this.toggleThundersEdge = this.toggleThundersEdge.bind(this);
         this.toggleUnchartedSpace = this.toggleUnchartedSpace.bind(this);
         this.toggleDiscordantStars = this.toggleDiscordantStars.bind(this);
         this.toggleAscendentSun = this.toggleAscendentSun.bind(this)
@@ -459,6 +460,17 @@ class App extends React.Component {
     toggleProphecyOfKings() {
         const newIncludedExpansions = this.state.includedExpansions;
         newIncludedExpansions[EXPANSIONS.POK] = !newIncludedExpansions[EXPANSIONS.POK]
+        this.setState({
+            includedExpansions: newIncludedExpansions,
+        }, this.showExtraTiles);
+    }
+    
+    /**
+     * Toggle whether we need to use the thunder's edge fan expansion or not
+     */
+    toggleThundersEdge() {
+        const newIncludedExpansions = this.state.includedExpansions;
+        newIncludedExpansions[EXPANSIONS.TE] = !newIncludedExpansions[EXPANSIONS.TE]
         this.setState({
             includedExpansions: newIncludedExpansions,
         }, this.showExtraTiles);
@@ -1247,6 +1259,7 @@ class App extends React.Component {
                             ref={this.mapOptions}
 
                             toggleProphecyOfKings={this.toggleProphecyOfKings}
+                            toggleThundersEdge={this.toggleThundersEdge}
                             toggleUnchartedSpace={this.toggleUnchartedSpace} 
                             toggleDiscordantStars={this.toggleDiscordantStars} 
                             toggleAscendentSun={this.toggleAscendentSun}
