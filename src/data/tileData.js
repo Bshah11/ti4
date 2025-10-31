@@ -1679,17 +1679,17 @@ const tileData = {
                     "influence": 0,
                     "trait": null,
                     "specialty": null,
+                    "ability": "You may exhaust this card when you pass to draw 1 action card and gain 1 command token.",
                     "legendary": true
                 },
                 {
-                    // todo: figure out how to signify this is a space station
                     "name": "Revelation",
                     "resources": 1,
                     "influence": 2,
                     "trait": null,
                     "specialty": null,
-                    "ability": "You may exhaust this card when you pass to draw 1 action card and gain 1 command token.",
-                    "legendary": false
+                    "legendary": false,
+                    "spaceStation": true
                 }
           ]
         },
@@ -1740,7 +1740,7 @@ const tileData = {
                 }
             ]
         },
-        "96a": {
+        "96": {
             "type": "green",
             "race": "The Firmament",
             "wormhole": [],
@@ -1994,13 +1994,13 @@ const tileData = {
                     "legendary": false
                 },
                 {
-                    // todo: space station
                     "name": "Tsion Station",
                     "resources": 1,
                     "influence": 1,
                     "trait": PLANET_TRAITS.NONE,
                     "specialty": TECH_SPECIALTIES.NONE,
-                    "legendary": false
+                    "legendary": false,
+                    "spaceStation": true
                 }
             ]
         },
@@ -2049,13 +2049,13 @@ const tileData = {
                     "legendary": false
                 },
                 {
-                    // todo: space station
                     "name": "Oluz Station",
                     "resources": 1,
                     "influence": 1,
                     "trait": PLANET_TRAITS.NONE,
                     "specialty": TECH_SPECIALTIES.NONE,
-                    "legendary": false
+                    "legendary": false,
+                    "spaceStation": true
                 }
             ]
         },
@@ -2125,13 +2125,13 @@ const tileData = {
             "anomaly": [ANOMALIES.ASTEROID_FIELD, ANOMALIES.GRAVITY_RIFT],
             "planets": [
                 {
-                    // todo: space station
                     "name": "The Watchtower",
                     "resources": 1,
                     "influence": 1,
                     "trait": PLANET_TRAITS.NONE,
                     "specialty": TECH_SPECIALTIES.NONE,
-                    "legendary": false
+                    "legendary": false,
+                    "spaceStation": true
                 }
             ]
         },
