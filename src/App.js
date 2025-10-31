@@ -44,6 +44,7 @@ class App extends React.Component {
 
             includedExpansions: Object.fromEntries([
                 [EXPANSIONS.POK, false],
+                [EXPANSIONS.TE, false],
                 [EXPANSIONS.UnS, false],
                 [EXPANSIONS.DS, false],
                 [EXPANSIONS.AS, false],
@@ -245,7 +246,11 @@ class App extends React.Component {
         let systemNumbers = []
 
         const expansionCheck = (includedExpansions) => (
-            (id) => (!tileData.pok.includes(id) || includedExpansions[EXPANSIONS.POK]) && (!tileData.uncharted.includes(id) || includedExpansions[EXPANSIONS.UnS]) && (!tileData.sun.includes(id) || includedExpansions[EXPANSIONS.AS]) && (!tileData.asyncLanes.includes(id) || includedExpansions[EXPANSIONS.Async])
+            (id) => (!tileData.pok.includes(id) || includedExpansions[EXPANSIONS.POK]) &&
+              (!tileData.te.includes(id) || includedExpansions[EXPANSIONS.TE]) &&
+              (!tileData.uncharted.includes(id) || includedExpansions[EXPANSIONS.UnS]) &&
+              (!tileData.sun.includes(id) || includedExpansions[EXPANSIONS.AS]) &&
+              (!tileData.asyncLanes.includes(id) || includedExpansions[EXPANSIONS.Async])
         )
 
         systemNumbers = systemNumbers.concat(tileData.blue).concat(tileData.red).filter(expansionCheck(this.state.includedExpansions));
@@ -586,7 +591,11 @@ class App extends React.Component {
         let systemNumbers = []
 
         const expansionCheck = (includedExpansions) => (
-            (id) => (!tileData.pok.includes(id) || includedExpansions[EXPANSIONS.POK]) && (!tileData.uncharted.includes(id) || includedExpansions[EXPANSIONS.UnS]) && (!tileData.sun.includes(id) || includedExpansions[EXPANSIONS.AS]) && (!tileData.asyncLanes.includes(id) || includedExpansions[EXPANSIONS.Async])
+            (id) => (!tileData.pok.includes(id) || includedExpansions[EXPANSIONS.POK]) &&
+              (!tileData.te.includes(id) || includedExpansions[EXPANSIONS.TE]) &&
+              (!tileData.uncharted.includes(id) || includedExpansions[EXPANSIONS.UnS]) &&
+              (!tileData.sun.includes(id) || includedExpansions[EXPANSIONS.AS]) &&
+              (!tileData.asyncLanes.includes(id) || includedExpansions[EXPANSIONS.Async])
         )
 
         systemNumbers = systemNumbers.concat(tileData.blue).concat(tileData.red).filter(expansionCheck(this.state.includedExpansions));

@@ -10,7 +10,11 @@ import SetPlayerNameModal from "./SetPlayerNameModal";
 import SetRacesModal from "./SetRacesModal";
 
 const expansionCheck = (includedExpansions) => (
-    (id) => (!tileData.pok.includes(id) || includedExpansions[EXPANSIONS.POK]) && (!tileData.uncharted.includes(id) || includedExpansions[EXPANSIONS.UnS]) && (!tileData.sun.includes(id) || includedExpansions[EXPANSIONS.AS]) && (!tileData.asyncLanes.includes(id) || includedExpansions[EXPANSIONS.Async])
+    (id) => (!tileData.pok.includes(id) || includedExpansions[EXPANSIONS.POK]) &&
+      (!tileData.te.includes(id) || includedExpansions[EXPANSIONS.TE]) &&
+      (!tileData.uncharted.includes(id) || includedExpansions[EXPANSIONS.UnS]) &&
+      (!tileData.sun.includes(id) || includedExpansions[EXPANSIONS.AS]) &&
+      (!tileData.asyncLanes.includes(id) || includedExpansions[EXPANSIONS.Async])
 )
 
 class MapOptions extends React.Component {
@@ -324,6 +328,7 @@ class MapOptions extends React.Component {
         } else {
             encodedSettings += "FFFF"
         }
+        encodedSettings += this.props.includedExpansions[EXPANSIONS.TE] ? "T" : "F";
         encodedSettings += this.state.currentNumberOfPlayers.toString();
         encodedSettings += this.state.currentBoardStyleOptions.indexOf(this.state.currentBoardStyle).toString();
         encodedSettings += this.state.optionsPossible.placementStyles.indexOf(this.state.currentPlacementStyle).toString();
@@ -406,6 +411,13 @@ class MapOptions extends React.Component {
             currentIndex += 1;
             useExpansions[EXPANSIONS.Async] = newSettings[currentIndex] === "T";
             useFanContent = useFanContent || useExpansions[EXPANSIONS.Async]
+            currentIndex += 1;
+        }
+        
+        // Thunder's Edge
+        // Compatability with older URL formatting
+        if (newSettings[currentIndex] === "T" || newSettings[currentIndex] === "F") {
+            useExpansions[EXPANSIONS.TE] = newSettings[currentIndex] === "T";
             currentIndex += 1;
         }
 
@@ -620,7 +632,7 @@ class MapOptions extends React.Component {
         let newTiles = [...boardData.blankMap]
 
         // Put Mecatol Rex in the middle
-        newTiles[0] = 18
+        newTiles[0] = includedExpansions[EXPANSIONS.TE] ? 112 : 18;
 
         // Place hyperlanes
         this.placeHyperlanes(newTiles)

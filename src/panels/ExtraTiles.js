@@ -35,7 +35,11 @@ class ExtraTiles extends React.Component {
         //     systemNumbers = systemNumbers.concat(tileData.pokBlue).concat(tileData.pokRed);
         // }
 
-        const expansionCheck = (id) => (!tileData.pok.includes(id) || this.props.includedExpansions[EXPANSIONS.POK]) && (!tileData.uncharted.includes(id) || this.props.includedExpansions[EXPANSIONS.UnS]) && (!tileData.sun.includes(id) || this.props.includedExpansions[EXPANSIONS.AS]) && (!tileData.asyncLanes.includes(id) || this.props.includedExpansions[EXPANSIONS.Async])
+        const expansionCheck = (id) => (!tileData.pok.includes(id) || this.props.includedExpansions[EXPANSIONS.POK]) &&
+          (!tileData.te.includes(id) || this.props.includedExpansions[EXPANSIONS.TE]) &&
+          (!tileData.uncharted.includes(id) || this.props.includedExpansions[EXPANSIONS.UnS]) &&
+          (!tileData.sun.includes(id) || this.props.includedExpansions[EXPANSIONS.AS]) &&
+          (!tileData.asyncLanes.includes(id) || this.props.includedExpansions[EXPANSIONS.Async])
 
         systemNumbers = systemNumbers.concat(tileData.blue).concat(tileData.red).filter(expansionCheck);
 
