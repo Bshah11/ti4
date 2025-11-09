@@ -6,6 +6,7 @@ import MoreInfo from "./panels/MoreInfo";
 import ExtraTiles from "./panels/ExtraTiles";
 import MainOverview from "./overview/MainOverview";
 import MainMap from "./map/MainMap";
+import MapInfo from './map/MapInfo';
 import MapControls from "./map/MapControls";
 import OptionsControls from "./options/OptionsControls";
 import MapOptions from "./options/MapOptions";
@@ -14,6 +15,7 @@ import boardData from "./data/boardData.json";
 import raceData from "./data/raceData.json";
 import {calculateOffsets} from "./helpers/Helpers";
 import { Tooltip as ReactTooltip } from 'react-tooltip'
+
 
 
 /**
@@ -1216,7 +1218,8 @@ class App extends React.Component {
                 <div id="mainContent" className="justify-content-center align-items-center" onClick={this.updateTileClicked}>
                     <MainOverview visible={this.state.overviewVisible}
                     />
-                    
+                    <MapInfo tiles = {this.state.tiles}
+                    />
                     <MainMap visible={this.state.mapVisible} overlayVisible={this.state.overlayVisible}
                              tiles={this.state.tiles}
 
