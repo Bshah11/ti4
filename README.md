@@ -1,9 +1,40 @@
+🚀 Project Overview: Twilight Imperium Map Tool
+
+This repository is a **personal, maintained fork** of the original **Twilight Imperium 4 Map Tool**.
+
+I am using this fork primarily as a **testbed and learning environment** for my own development. My goals are twofold:
+
+1.  **Personal Development:** To practice modern JavaScript/React workflows and get back into coding after an extended absence.
+2.  **Group Adaptation:** To adapt this tool to meet the specific map generation needs of my local gaming group.
+
+This project is a separate line of development from the original.
+
+---
+
+## 🤝 Attribution and Original Work
+
+This tool is made possible by the excellent foundation laid by the original creator, KeeganW, and includes contributions from the community.
+
+* **Original Repository (KeeganW):** [https://github.com/KeeganW/ti4](https://github.com/KeeganW/ti4)
+* **Included Expansion PR (Thunder's Edge):** [https://github.com/astevezimm/ti4](https://github.com/astevezimm/ti4)
+* **Original Creator:** [KeeganW](https://github.com/KeeganW)
+* **License:** This project continues to operate under the original license as determined by the original creator.
+
+---
+
+## 📝 My Maintenance Status
+
+The primary development branch for this fork is **`main`**.
+
+* **Status:** Commits on this branch represent my independent work, fixes (including the necessary asset path corrections), and adaptation of the tool for my specific needs.
+* **Future:** While the current focus is on personal development, any generic bug fixes or widely applicable improvements developed here may be considered for submission back to the original project, should it become active again.
+
 # TI4 Generator
 A web tool to generate Twilight Imperium 4 game boards through many custom settings.
 
 ## Web Quick Start
 
-Visit the [web page located on github pages](https://keeganw.github.io/ti4/). This is running from the `gh-pages` branch.
+Visit the [web page located on github pages](https://keeganw.github.io/ti4/). Check with original repo to see what this is running from.
 
 ## Development Setup
 
