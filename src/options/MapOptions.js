@@ -577,6 +577,7 @@ class MapOptions extends React.Component {
             generated: true,
         }, () => {
             this.props.updateTiles(this.getNewTileSet(), this.encodeSettings(), true);
+            console.log ("State after generating new map:", this.props);
         });
 
     }

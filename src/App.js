@@ -60,10 +60,12 @@ class App extends React.Component {
             currentMobileHover: "",
         };
 
+        console.log("INITIAL STATE:", this.state);
+
         this.mapOptions = React.createRef();
         this.map = React.createRef();
 
-        this.drawMap = this.drawMap.bind(this);
+        this.drawMap = this.drawMap.bind(this); 
 
         this.onPopState = this.onPopState.bind(this);
         this.checkResize = this.checkResize.bind(this);
@@ -252,7 +254,7 @@ class App extends React.Component {
               (!tileData.sun.includes(id) || includedExpansions[EXPANSIONS.AS]) &&
               (!tileData.asyncLanes.includes(id) || includedExpansions[EXPANSIONS.Async])
         )
-
+          
         systemNumbers = systemNumbers.concat(tileData.blue).concat(tileData.red).filter(expansionCheck(this.state.includedExpansions));
 
         let unusedTiles = []
@@ -277,6 +279,13 @@ class App extends React.Component {
             // Update the extra tiles menu, and draw a new map with the new tiles
             this.showExtraTiles();
             this.drawMap();
+
+            //console.log("current state after updateTile:" ,this.state.tiles);
+            //const tilesMap = this.state.tiles.filter(element => element !== -1);
+            //console.log("List of Tiles map:" ,tilesMap);
+            //for (let planet in tilesMap){
+            //    console.log(planet);
+            //}
         });
     }
 
