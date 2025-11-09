@@ -170,20 +170,20 @@ class MainMap extends React.Component {
                         onClick={this.toggleControls}
                     // data-place="left"
                     >
-                        <button id={"rotate-left-" + tileNumber} className={"btn btn-primary tile-control rotate-left" + (this.props.tileClicked === tileNumber ? "" : " d-none")} data-tip="Rotate tile left" data-place="top" >
+                        <button hidden id={"rotate-left-" + tileNumber} className={"btn btn-primary tile-control rotate-left" + (this.props.tileClicked === tileNumber ? "" : " d-none")} data-tip="Rotate tile left" data-place="top" >
                             <Arrow90degLeft id={"rotate-left-svg-" + tileNumber} className={"icon"} />
                         </button>
                         <button id={"lock-" + tileNumber} className={"btn btn-primary tile-control lock" + (this.props.tileClicked === tileNumber ? "" : " d-none") + (this.props.lockedTiles.indexOf(systemNumber) >= 0 ? " active" : "")} data-tip="Keep tile here on generation" >
                             <Lock id={"lock-svg-" + tileNumber} className={"icon"} />
                         </button>
-                        <button id={"rotate-right-" + tileNumber} className={"btn btn-primary tile-control rotate-right" + (this.props.tileClicked === tileNumber ? "" : " d-none")} data-tip={"Rotate tile right"} >
+                        <button hidden id={"rotate-right-" + tileNumber} className={"btn btn-primary tile-control rotate-right" + (this.props.tileClicked === tileNumber ? "" : " d-none")} data-tip={"Rotate tile right"} >
                             <Arrow90degRight id={"rotate-right-svg-" + tileNumber} className={"icon"} />
                         </button>
                         <span id={"number-" + tileNumber} className={"overlay"} style={hidden}>{tileNumber}</span>
                         <span id={"wormhole-" + tileNumber} className={"overlay"} style={hidden}></span>
                         <img id={"tile-" + tileNumber}
                             className="tile"
-                            src={window.location.origin + window.location.pathname + "/tiles/ST_" + systemNumber + ".webp"}
+                            src={window.location.origin + "/ti4/tiles/ST_" + systemNumber + ".webp"}
                             draggable="true" onDragStart={this.props.drag} onDrop={this.props.drop} onDragOver={this.props.allowDrop} onDragEnter={this.props.dragEnter} onDragLeave={this.props.dragLeave} onTouchMove={this.props.touchMove} onTouchEnd={this.props.touchEnd}
                             alt={"Twilight Imperium 4 Tile Number " + tileNumber + " and System Number " + systemNumber + "."}
                         />
