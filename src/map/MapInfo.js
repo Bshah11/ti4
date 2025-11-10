@@ -1,4 +1,5 @@
 import React from "react";
+// Assuming tileData is a large object imported correctly
 import tileData, {WORMHOLE_SYMBOLS, EXPANSIONS} from "../data/tileData";
 import boardData from "../data/boardData.json";
 import raceData from "../data/raceData.json";
@@ -7,30 +8,22 @@ class MapInfo extends React.Component{
     constructor(prop){
         super(prop);
         this.state = {
-            lengendaries: [],
+            // Renamed to 'legendaries' for consistency with usage
+            legendaries: [],
             resources: -1,
             influence: -1,
             spaceStations: -1
         };
-        this.fillLegendaries = this.fillLegendaries.bind(this);
-        this.fillResources = this.fillResources.bind(this);
-        this.fillInfluences = this.fillInfluences.bind(this);
-        this.fillSpaceStations = this.fillSpaceStations.bind(this);        
+        // Bind the single, unified processing function
+        this.processMapTiles = this.processMapTiles.bind(this);
     };
     
     componentDidMount() {
-    // Check 1: Does the tiles prop exist?
-    // Check 2: Is the tiles array not empty?
-    if (this.props.tiles && this.props.tiles.length > 0) {
-        console.log("MapInfo: Processing initial map.");
-        this.fillLegendaries(this.props.tiles);
-        this.fillResources(this.props.tiles);
-        this.fillInfluences(this.props.tiles);
-        this.fillSpaceStations(this.props.tiles);
-    } else {
-        // Handle the 'no tiles' case explicitly
-        console.log("MapInfo: No tiles passed on initial load. State remains empty.");
-        // Since state is already initialized to legendaries: [], no further action is needed here.
+        if (this.props.tiles && this.props.tiles.length > 0) {
+            console.log("MapInfo: Processing initial map.");
+            this.processMapTiles(this.props.tiles);
+        } else {
+            console.log("MapInfo: No tiles passed on initial load. State remains empty.");
         }
     }   
 
@@ -41,155 +34,93 @@ class MapInfo extends React.Component{
     componentDidUpdate(prevProps) {
         // 🛑 CRITICAL CHECK: Only run if the 'tiles' array reference has changed.
         if (this.props.tiles !== prevProps.tiles) {
-            console.log("MapInfo: Detecting new map generation. Resetting state.");
+            console.log("MapInfo: Detecting new map generation. Processing new tiles in single pass.");
             
             if (this.props.tiles && this.props.tiles.length > 0) {
-                // 1. Reset state to an empty array before processing the NEW map
-                this.setState({ legendaries: [] }, () => {
-                    // 2. Process the new tiles after the state is guaranteed to be clear
-                    this.fillLegendaries(this.props.tiles);
-                    this.fillResources(this.props.tiles);
-                    this.fillInfluences(this.props.tiles);
-                    this.fillSpaceStations(this.props.tiles);
-                });
+                // Call the single unified function; it will handle calculating and setting all state.
+                this.processMapTiles(this.props.tiles);
             }
         }
     }
 
-    fillLegendaries(tiles){
-        const newLegendaryPlanets = [];
-        // iterate through all the map tiles
-        for (const tile of tiles){
-            const currentTileData = tileData.all[tile];
-            // checks if the tile has planets
-            if (currentTileData !== undefined && currentTileData.planets.length !== 0){
-                let planets = currentTileData.planets; 
-                const legendaryPlanetsinTile = planets.find(planet => planet.legendary === true);
-                //if there are legendary planets add them to list
-                if (legendaryPlanetsinTile !== undefined){
-                    //console.log(planets.filter(planet => planet.legendary === true));
-                    newLegendaryPlanets.push(legendaryPlanetsinTile);
-                }
-            }
-        };
-        if (newLegendaryPlanets.length > 0) {
-            this.setState(prevState => ({
-                // merge new state
-                legendaries : newLegendaryPlanets
-            }), () => {
-                console.log(`Final total legendaries processed: ${this.state.legendaries.length}`);
-                console.log(this.state.legendaries)
-            });
-        }
-    }
-
-    fillResources(tiles){
-        let newResource = 0;
-        for (let tile of tiles){
-            const currentTileData = tileData.all[tile];
-
-            //console.log(currentTileData);
-            // checks if the tile has planets
-            if (currentTileData !== undefined && currentTileData.planets.length !== 0){
-                if (currentTileData.type === "green"){
-                   //console.log(currentTileData);
-                   continue;
-                }
-                let planets = currentTileData.planets;
-                //console.log(planets);
-                for (const planet of planets){
-                    //console.log(planet);
-                    if (planet.resources){
-                        //console.log(planet.name + " : " + planet.resources);
-                        newResource += planet.resources;
-                    }
-                } 
-            }
-        }
-        // update resource state
-        this.setState({
-                // No need for prevState here since 'newResource' is a complete, fresh value.
-                resources : newResource
-            }, () => {
-                console.log(`Updated Resources processed: ${this.state.resources}`);
-            });
-
-
-    }
-
-        fillInfluences(tiles){
+    /**
+     * Consolidates all map calculations (Legendaries, Resources, Influence, Space Stations)
+     * into a single pass over the 'tiles' array for optimal O(N) performance.
+     */
+    processMapTiles(tiles) {
+        let newLegendaryPlanets = [];
+        let newResources = 0;
         let newInfluence = 0;
-        for (let tile of tiles){
+        let newSpaceStations = 0;
+
+        // Iterate through all the map tiles ONCE
+        for (const tile of tiles) {
             const currentTileData = tileData.all[tile];
 
-            //console.log(currentTileData);
-            // checks if the tile has planets
-            if (currentTileData !== undefined && currentTileData.planets.length !== 0){
-                if (currentTileData.type === "green"){
-                   //console.log(currentTileData);
-                   continue;
+            // CRITICAL CHECK: Does the tile exist and does it contain planets?
+            if (currentTileData && currentTileData.planets.length > 0) {
+                
+                // Continue allows us to skip tiles (like green/empty space) that don't need planet processing.
+                if (currentTileData.type === "green") {
+                    continue;
                 }
-                let planets = currentTileData.planets;
-                //console.log(planets);
-                for (const planet of planets){
-                    //console.log(planet);
-                    if (planet.influence){
-                        //console.log(planet.name + " : " + planet.resources);
+
+                const planets = currentTileData.planets;
+                
+                // Iterate through all planets in the current tile
+                for (const planet of planets) {
+                    
+                    // 1. Legendary Check
+                    if (planet.legendary === true) {
+                        newLegendaryPlanets.push(planet);
+                    }
+
+                    // 2. Resources Check
+                    if (planet.resources) {
+                        newResources += planet.resources;
+                    }
+
+                    // 3. Influence Check
+                    if (planet.influence) {
                         newInfluence += planet.influence;
                     }
-                } 
-            }
-        }
-        // update influence state state
-        this.setState({
-                // No need for prevState here since 'newResource' is a complete, fresh value.
-                influence : newInfluence
-            }, () => {
-                console.log(`Updated Influence processed: ${this.state.influence}`);
-            });
 
-
-    }
-
-        fillSpaceStations(tiles){
-        let newSpaceStations = 0;
-        for (let tile of tiles){
-            const currentTileData = tileData.all[tile];
-
-            //console.log(currentTileData);
-            // checks if the tile has planets
-            if (currentTileData !== undefined && currentTileData.planets.length !== 0){
-                if (currentTileData.type === "green"){
-                   //console.log(currentTileData);
-                   continue;
-                }
-                let planets = currentTileData.planets;
-                //console.log(planets);
-                for (const planet of planets){
-                    //console.log(planet);
-                    if (planet.spaceStation){
-                        //console.log(planet);
+                    // 4. Space Station Check
+                    if (planet.spaceStation) {
                         newSpaceStations += 1;
                     }
-                } 
+                }
             }
         }
-        // update resource state
+
+        // Update the component state ONCE with all new values
         this.setState({
-                // No need for prevState here since 'newResource' is a complete, fresh value.
-                spaceStations : newSpaceStations
-            }, () => {
-                console.log(`Updated Space Stations processed: ${this.state.spaceStations}`);
-            });
-
-
+            legendaries: newLegendaryPlanets,
+            resources: newResources,
+            influence: newInfluence,
+            spaceStations: newSpaceStations
+        }, () => {
+            console.log(`MapInfo: Finished single-pass processing.`);
+            console.log(`Legendaries: ${this.state.legendaries.length}, Resources: ${this.state.resources}, Influence: ${this.state.influence}, Space Stations: ${this.state.spaceStations}`);
+        });
     }
 
     render() {
-        return
+        // Remember to add your rendering logic here based on the state!
+        // For example, display the calculated values:
+        return (
+            <div className="col-12 col-md-4 text-start">
+                {/* Inner card with styles. Added text-dark for high contrast. */}
+                <div className="p-4 border border-secondary rounded-lg shadow-lg bg-light mt-4 text-dark">
+                    <h3 className="mb-3 text-secondary border-bottom pb-2">Map Statistics</h3>
+                    <p className="mb-1"><strong>Legendary Planets Found:</strong> {this.state.legendaries.length}</p>
+                    <p className="mb-1"><strong>Total Resources:</strong> {this.state.resources}</p>
+                    <p className="mb-1"><strong>Total Influence:</strong> {this.state.influence}</p>
+                    <p className="mb-0"><strong>Space Stations:</strong> {this.state.spaceStations}</p>
+                </div>
+            </div>
+        );
     };
-
-
-
 };
+
 export default MapInfo;
