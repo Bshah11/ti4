@@ -12,7 +12,10 @@ class MapInfo extends React.Component{
             legendaries: [],
             resources: -1,
             influence: -1,
-            spaceStations: -1
+            spaceStations: -1,
+            baseTile: 0,
+            pokTiles: 0,
+            teTiles: 0
         };
         // Bind the single, unified processing function
         this.processMapTiles = this.processMapTiles.bind(this);
@@ -52,11 +55,24 @@ class MapInfo extends React.Component{
         let newResources = 0;
         let newInfluence = 0;
         let newSpaceStations = 0;
+        let newBaseTiles = 0;
+        let newPokTiles = 0;
+        let newTeTiles = 0;
 
         // Iterate through all the map tiles ONCE
         for (const tile of tiles) {
             const currentTileData = tileData.all[tile];
 
+            // Logic to determine tile expansion based on numeric range
+            const tileNumber = parseInt(tile, 10);
+            console.log(tileNumber);
+            if (tileNumber >= 17 && tileNumber < 51) {
+                newBaseTiles += 1;
+            } else if (tileNumber > 57 && tileNumber <= 82) {
+                newPokTiles += 1;
+            } else if (tileNumber >= 97 && tileNumber <= 117) {
+                newTeTiles += 1;
+            }
             // CRITICAL CHECK: Does the tile exist and does it contain planets?
             if (currentTileData && currentTileData.planets.length > 0) {
                 
@@ -94,29 +110,70 @@ class MapInfo extends React.Component{
         }
 
         // Update the component state ONCE with all new values
+        console.log(newLegendaryPlanets);
         this.setState({
             legendaries: newLegendaryPlanets,
             resources: newResources,
             influence: newInfluence,
-            spaceStations: newSpaceStations
+            spaceStations: newSpaceStations,
+            baseTiles : newBaseTiles,
+            pokTiles : newPokTiles,
+            teTiles : newTeTiles
         }, () => {
             console.log(`MapInfo: Finished single-pass processing.`);
-            console.log(`Legendaries: ${this.state.legendaries.length}, Resources: ${this.state.resources}, Influence: ${this.state.influence}, Space Stations: ${this.state.spaceStations}`);
+            //console.log(`Legendaries: ${this.state.legendaries.length}, Resources: ${this.state.resources}, Influence: ${this.state.influence}, Space Stations: ${this.state.spaceStations}`);
         });
     }
 
     render() {
         // Remember to add your rendering logic here based on the state!
         // For example, display the calculated values:
+        const fixedStyle = { 
+            position: 'fixed', 
+            top: '1rem',      // Custom spacing: roughly top-4 equivalent
+            left: '1rem',     // Custom spacing: roughly left-4 equivalent
+            zIndex: 9999,     // Critical for stacking above the map
+            maxWidth: '320px' // Partial fixed width to prevent zoom-scaling issues
+        };
         return (
-            <div className="col-12 col-md-4 text-start">
-                {/* Inner card with styles. Added text-dark for high contrast. */}
-                <div className="p-4 border border-secondary rounded-lg shadow-lg bg-light mt-4 text-dark">
+            <div className="text-start" style={fixedStyle}>
+                {/* 🚀 CRITICAL FIX: This is now the ONLY container with border/shadow/bg/padding */}
+                <div className="p-4 border border-secondary rounded-lg shadow-lg bg-light text-dark">
+                    
+                    {/* --- 1. MAIN STATS SECTION --- */}
                     <h3 className="mb-3 text-secondary border-bottom pb-2">Map Statistics</h3>
                     <p className="mb-1"><strong>Legendary Planets Found:</strong> {this.state.legendaries.length}</p>
                     <p className="mb-1"><strong>Total Resources:</strong> {this.state.resources}</p>
                     <p className="mb-1"><strong>Total Influence:</strong> {this.state.influence}</p>
-                    <p className="mb-0"><strong>Space Stations:</strong> {this.state.spaceStations}</p>
+                    <p className="mb-3"><strong>Space Stations:</strong> {this.state.spaceStations}</p>
+                    
+                    {/* 🚀 SEAMLESS DIVIDER: Separates the two sections */}
+                    <hr className="my-3 text-secondary" />
+
+                    {/* --- 2. TILE COUNTS SECTION (Now nested inside the main container) --- */}
+                    {/* Removed: border, shadow, bg-light, mt-4 from this div */}
+                    <h5 className="mb-3 text-secondary">Tile Counts</h5>
+
+                    {/* Bootstrap Row with 3 equal columns (col-4) */}
+                    <div className="row g-2 text-center">
+                        {/* Base Tiles (1/3 width) */}
+                        <div className="col-4">
+                            <div className="small text-muted">Base</div>
+                            <strong className="h5">{this.state.baseTiles}</strong>
+                        </div>
+                        
+                        {/* PoK Tiles (1/3 width) */}
+                        <div className="col-4">
+                            <div className="small text-muted">PoK</div>
+                            <strong className="h5">{this.state.pokTiles}</strong>
+                        </div>
+                        
+                        {/* Te Tiles (1/3 width) */}
+                        <div className="col-4">
+                            <div className="small text-muted">TE</div>
+                            <strong className="h5">{this.state.teTiles}</strong>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

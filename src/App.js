@@ -1215,11 +1215,11 @@ class App extends React.Component {
     render() {
         return (
             <div>
+                <MapInfo tiles = {this.state.tiles}/>
                 <div id="mainContent" className="justify-content-center align-items-center" onClick={this.updateTileClicked}>
                     <MainOverview visible={this.state.overviewVisible}
                     />
-                    <MapInfo tiles = {this.state.tiles}
-                    />
+                    
                     <MainMap visible={this.state.mapVisible} overlayVisible={this.state.overlayVisible}
                              tiles={this.state.tiles}
 
