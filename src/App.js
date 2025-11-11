@@ -31,6 +31,7 @@ class App extends React.Component {
             overviewVisible: true,
             extraTilesVisible: false,
             moreInfoVisible: false,
+            mapInfoVisible: false,
             backgroundAnimated: true,
             showAllExtraTiles: false,
             customMapBuilding: false,
@@ -385,6 +386,9 @@ class App extends React.Component {
             overlayVisible: !this.state.overlayVisible,
         });
     }
+
+    // toggle map information
+    toggleMapInfo = () => { this.setState(prevState => ({ mapInfoVisible: !prevState.mapInfoVisible })); }
 
     /**
      * Toggle the wormhole overlay.
@@ -1215,7 +1219,7 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <MapInfo tiles = {this.state.tiles}/>
+                <MapInfo tiles = {this.state.tiles} visible={this.state.mapInfoVisible}/>
                 <div id="mainContent" className="justify-content-center align-items-center" onClick={this.updateTileClicked}>
                     <MainOverview visible={this.state.overviewVisible}
                     />
@@ -1243,8 +1247,10 @@ class App extends React.Component {
 
                 <MapControls visible={this.state.mapControlsVisible} extraTilesVisible={this.state.extraTilesVisible}
                              moreInfoVisible={this.state.moreInfoVisible} overlayVisible={this.state.overlayVisible}
+                             isMapInfoVisible={this.state.mapInfoVisible}
                              tiles={this.state.tiles} map={this.map}
-
+                             
+                             toggleMapInfo={this.toggleMapInfo}
                              toggleOverlay={this.toggleOverlay}
                              toggleWormholeOverlay={this.toggleWormholeOverlay}
                              toggleMoreInfo={this.toggleMoreInfo} toggleExtraTiles={this.toggleExtraTiles}

@@ -39,7 +39,7 @@ class MapControls extends React.Component {
 
     render() {
         return (
-            <div id={"map-controls"}>
+            <div id={"map-controls"} >
                 <div id="zoomButtons" className={"btn-group-justified btn-group-sm btn-group-vertical" + (this.props.visible ? "" : " d-none")}>
                     <button className="btn btn-primary" id="zoomPlus" onClick={this.props.zoomPlus} data-tooltip-id="tooltip" data-tooltip-content="Or Hold CTRL and Use Scroll Wheel" data-tooltip-place="left" >
                         <Plus className="icon" />
@@ -72,6 +72,22 @@ class MapControls extends React.Component {
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 194.78 169.62" className="icon" fill="currentColor">
                             <polygon className="overlay-cls-1" points="148.03 4 51.81 4 4.61 86.92 52.02 169.84 148.03 169.84 195.03 86.92 148.03 4"/>
                             <text className="overlay-cls-2" transform="translate(62.09 132.03)">β</text>
+                        </svg>
+                    </button>
+                </div>
+
+                {/* NEW: Button to toggle the Map Stats Panel */}
+                <div id="mapInfoButton" className={"btn-group btn-group-sm btn-group-vertical mb-2" + (this.props.visible ? "" : " d-none")}>
+                    <button 
+                        className={"btn btn-primary" + (this.props.isMapInfoVisible ? " active": "")} 
+                        id="showMapInfo" 
+                        onClick={this.props.toggleMapInfo}
+                        data-tooltip-id="tooltip" 
+                        data-tooltip-content="Toggle Map Stats Panel" 
+                        data-tooltip-place="left"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="icon bi bi-bar-chart-fill" viewBox="0 0 16 16">
+                            <path d="M1 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3zm5-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2z"/>
                         </svg>
                     </button>
                 </div>

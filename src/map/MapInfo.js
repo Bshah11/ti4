@@ -126,8 +126,11 @@ class MapInfo extends React.Component{
     }
 
     render() {
-        // Remember to add your rendering logic here based on the state!
-        // For example, display the calculated values:
+        // 🚀 NEW: If the component is not visible, return null or an empty div.
+        if (!this.props.visible) {
+            return null;
+        }
+        
         const fixedStyle = { 
             position: 'fixed', 
             top: '1rem',      // Custom spacing: roughly top-4 equivalent
